@@ -1,0 +1,92 @@
+<HTA:APPLICATION ID=PaperCutBalance APPLICATIONNAME=PrinterBalance BORDER=thin BORDERSTYLE=thin CAPTION=no CONTEXTMENU=no INNERBORDER=no MAXIMIZEBUTTON=no MINIMIZEBUTTON=no NAVIGABLE=yes SCROLL=no SELECTION=no SHOWINTASKBAR=no SINGLEINSTANCE=yes SYSMENU=no VERSION=1.0 WINDOWSTATE=normal>
+<head>
+<title>Browser</title>
+<meta http-equiv=Content-Type content="text/html; charset=iso-8859-1" />
+<script type="text/javascript">
+function resizeWin()
+{var height = 200; var width = 300; window.resizeTo(width,height);} 
+function moveWin(_1,_2){window.moveTo(_1,_2);}
+</script>
+
+<script language="javascript" type="text/javascript"> 
+function windowClose() { 
+window.open('','_parent',''); s
+window.close();
+} 
+</script>
+
+<script language=vbscript type="text/vbscript">
+Sub exit11()
+	Set wmi = GetObject("winmgmts://./root/cimv2")
+	browser = "iexplore.exe"
+	browser1 = "chrome.exe"
+	browser2 = "MicrosoftEdge.exe"
+	browser3 = "firefox.exe"
+	qry = "SELECT * FROM Win32_Process WHERE Name='" & browser & "'"
+	qry1 = "SELECT * FROM Win32_Process WHERE Name='" & browser1 & "'"
+	qry2 = "SELECT * FROM Win32_Process WHERE Name='" & browser2 & "'"
+	qry3 = "SELECT * FROM Win32_Process WHERE Name='" & browser3 & "'"
+	' cLOSE INTERNET EXPLORER
+	For Each p In wmi.ExecQuery(qry)
+	p.Terminate
+	Next
+	' Close Chrome bROWSER
+	For Each t In wmi.ExecQuery(qry1)
+	t.Terminate
+	Next
+	' Close Chrome edge
+	For Each n In wmi.ExecQuery(qry2)
+	n.Terminate
+	Next
+	' Close Chrome firefox
+	For Each f In wmi.ExecQuery(qry3)
+	f.Terminate
+	Next
+End Sub
+
+Sub testkill()
+Dim WshShell, oExec
+Set WshShell = CreateObject("WScript.Shell")
+
+Set oExec = WshShell.Exec("taskkill /fi ""imagename eq iexplore.exe""")
+Set oExec = WshShell.Exec("taskkill /fi ""imagename eq chrome.exe""")
+Set oExec = WshShell.Exec("taskkill /fi ""imagename eq MicrosoftEdge.exe""")
+Set oExec = WshShell.Exec("taskkill /fi ""imagename eq firefox.exe""")
+
+Do While oExec.Status = 0
+     WScript.Sleep 100
+Loop
+End Sub
+
+
+Sub min()
+ a = Now()
+ b=a+45min
+ 
+ document.write("The Value of a : " & a)
+
+
+
+End Sub
+
+</script>
+
+
+<!--<script language=vbscript src=scripts/Network.vbs></script> -->
+
+</head>
+	<body onLoad="moveWin(screen.availWidth-315,15); resizeWin();">
+	<form>
+
+
+	
+	<input type="button" value="Close this window" onclick="self.close()">
+	<hr>
+	<input type="button" value="Kill Browser" onclick=exit11()>
+	<hr>
+		<input type="button" value="test kill" onclick="testkill()">
+		<hr>
+	<input type="button" value="45min" onclick="min()">
+		</form>
+	</body>
+</html>
